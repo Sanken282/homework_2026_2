@@ -13,9 +13,13 @@
  * transform({a: 1, b: [1, 2, 3]}, (v) => v * 3);
  */
 
-function transform(obj, transformFn) {
-    if (typeof obj !== 'object' || obj === null || Array.isArray(obj)) {
-        throw new TypeError('Первый аргумент должен быть объектом (не null и не массивом)!');
+const isObject = (obj) => {
+    return Object.prototype.toString.call(obj) === '[object Object]';
+}
+
+const transform = (obj, transformFn) => {
+    if (!isObject(obj)) {
+        throw new TypeError('Первый аргумент должен быть объектом (не null, не массивом, не датой и тд)!');
     }
     if (typeof transformFn !== 'function') {
         throw new TypeError('Второй аргумент должен быть функцией!');
@@ -24,7 +28,7 @@ function transform(obj, transformFn) {
     const transformVal = (value) =>
         Array.isArray(value)
             ? value.map(transformVal)
-            : typeof value === 'object' && value !== null
+            : isObject(value)
                 ? transform(value, transformFn)
                 : transformFn(value);
 
