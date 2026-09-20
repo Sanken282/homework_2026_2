@@ -11,7 +11,6 @@
  * isObject([]); // false
  * isObject(null); // false
  */
-
 const isObject = (obj) => {
     return Object.prototype.toString.call(obj) === '[object Object]';
 }
@@ -31,7 +30,6 @@ const isObject = (obj) => {
  * @throws {TypeError} Если первый аргумент не является объектом
  * @throws {TypeError} Если второй аргумент не является функцией
  */
-
 const transform = (obj, transformFn) => {
     if (!isObject(obj)) {
         throw new TypeError('Первый аргумент должен быть объектом (не null, не массивом, не датой и тд)!');
@@ -49,7 +47,6 @@ const transform = (obj, transformFn) => {
      * @param {*} value - значение для преобразования
      * @returns {*} преобразованное значение
      */
-
     const transformVal = (value) =>
         Array.isArray(value)
             ? value.map(transformVal)
